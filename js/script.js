@@ -132,7 +132,7 @@ function printIcons(icons, container) { //non collidono! Qui sono parametri
 
         html += `
         <div class="icon p-20">
-            <i class= "${family} ${prefix} ${name}" style="color: #333"></i>
+            <i class= "${family} ${prefix}${name}" style="color: #333"></i>
             <div class="title">${name}</div>
         </div>
         `;               //+= per aggiungere un pezzo di markup ad ogni loop
