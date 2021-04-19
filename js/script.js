@@ -104,9 +104,9 @@ const icons = [
 
 //sorgente colori
 const colors = [
+    "#b76c19",
+    "#004643",
     "#e78fb3",
-    "#9656a1",
-    "#55423d",
 ];
 
 
@@ -119,6 +119,8 @@ const container = document.querySelector(".icons"); //prende il selettore
 
 //2 Stampa le icone colorate
 const coloredIcons = colorIcons(icons, colors); //array effettivo ritornato (qui c'è icons da cui voglio fare la copia)
+console.log(coloredIcons);
+printIcons(coloredIcons, container); //stampa le icone colorate
 
 
 
@@ -138,11 +140,11 @@ function printIcons(icons, container) { //non collidono! Qui sono parametri
     icons.forEach(element => { //icon qui sta comunque per element!
 
         //destrutturazione, tante variabili in un colpo solo
-        const {name, prefix, family} = element;//l'oggetto da cui vogliamo estrarre in ogni iterazione
+        const {name, prefix, family, color} = element;//l'oggetto da cui vogliamo estrarre in ogni iterazione
 
         html += `
         <div class="icon p-20">
-            <i class= "${family} ${prefix}${name}" style="color: #333"></i>
+            <i class= "${family} ${prefix}${name}" style="color: ${color}"></i>
             <div class="title">${name}</div>
         </div>
         `;               //+= per aggiungere un pezzo di markup ad ogni loop
@@ -161,6 +163,16 @@ function colorIcons(icons, colors) {
     console.log(colors);
 
     //assegno colore by type ad ogni icona(nuovo array per lasciare icon inalterato)
+    const coloredIcons =icons.map((icon) => {
+        const indexType = types.indexOf(icon.type); //attraverso un valore e non attraverso l'indice mi prendo la posizione
+
+        //costruire l'oggetto che verrà ritornato nella nuova collezione (questo ad ogni iterazione)
+        return {
+            ...icon, //spread nell'oggetto in cui stiamo reiterando(per evitare icon.name etc)
+            color: colors[indexType],
+        }
+    });
+    return coloredIcons; //nuovo array copia stand alone
 }
 
 
