@@ -102,13 +102,23 @@ const icons = [
     },
 ];
 
+//sorgente colori
+const colors = [
+    "#e78fb3",
+    "#9656a1",
+    "#55423d",
+];
+
+
 //referenza contenitore
 //Icon Container
 const container = document.querySelector(".icons"); //prende il selettore
 
 //1 Stampare le icone a schermo
-printIcons(icons, container); //dove mettere le icone e le icone stesse (sono i due parametri per la funzione)
+//printIcons(icons, container);    //dove mettere le icone e le icone stesse (sono i due parametri per la funzione)
 
+//2 Stampa le icone colorate
+const coloredIcons = colorIcons(icons, colors); //array effettivo ritornato (qui c'è icons da cui voglio fare la copia)
 
 
 
@@ -119,7 +129,7 @@ printIcons(icons, container); //dove mettere le icone e le icone stesse (sono i 
  * UTILITY *
  ***********/
 
-//Funzione per stampare le icone a schermo
+//FUNZIONE PER STAMPARE LE ICONE A SCHERMO
 function printIcons(icons, container) { //non collidono! Qui sono parametri
 
     //markup icone
@@ -141,4 +151,29 @@ function printIcons(icons, container) { //non collidono! Qui sono parametri
 
     //inserimento icone nel Container
     container.innerHTML = html; //dopo averlo costruito lo inserisco nell'html, assegnazione
+}
+
+
+//FUNZIONE PER STAMPARE ICONE COLORATE BY TYPE
+function colorIcons(icons, colors) {
+    const types = getType(icons);
+    console.log(types); //invocazione funzione per ottenere i type e gli passo icons come valore, che passano qui per il loop
+    console.log(colors);
+
+    //assegno colore by type ad ogni icona(nuovo array per lasciare icon inalterato)
+}
+
+
+//FUNZIONE PER OTTENERE I TYPE UNIVOCI
+function getType (icons) {
+    //for each e includes su un array preparato da noi
+    const types = [];
+    icons.forEach((icon) => {
+        if(! types.includes(icon.type)) {
+            types.push(icon.type); //il type si trova già nei type preparati? se no lo includo altrimenti continua il loop
+
+        }
+        
+    });
+    return types; //una volta ottenuti tutti i valori, li mettiamoin questa variabile
 }
