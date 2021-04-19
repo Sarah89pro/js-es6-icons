@@ -135,7 +135,7 @@ select.addEventListener("change", () => {   //l'evento non è al click ma al cam
     console.log(select.value);
     const selected = select.value;
 
-    const filteredIcons = filtericons(coloredIcons, selected); //lo passiamo ogni volta che facciamo un change
+    const filteredIcons = filterIcons(coloredIcons, selected); //lo passiamo ogni volta che facciamo un change
     printIcons(filteredIcons, container);
 
 
