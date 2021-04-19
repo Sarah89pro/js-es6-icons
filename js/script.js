@@ -122,6 +122,26 @@ const coloredIcons = colorIcons(icons, colors); //array effettivo ritornato (qui
 console.log(coloredIcons);
 printIcons(coloredIcons, container); //stampa le icone colorate
 
+//3 Filtraggio Icons
+
+//A Generazione select options
+const select = document.querySelector("#type");
+const types = getType(coloredIcons);
+//options di Filtraggio
+genOption(types, select);
+
+//B Filtraggio on Change
+select.addEventListener("change", () => {   //l'evento non è al click ma al cambiamento di stato (option attiva)
+    console.log(select.value);
+    const selected = select.value;
+
+    const filteredIcons = filtericons(coloredIcons, selected); //lo passiamo ogni volta che facciamo un change
+    printIcons(filteredIcons, container);
+
+
+});
+
+
 
 
 
@@ -152,7 +172,7 @@ function printIcons(icons, container) { //non collidono! Qui sono parametri
     });
 
     //inserimento icone nel Container
-    container.innerHTML = html; //dopo averlo costruito lo inserisco nell'html, assegnazione
+    container.innerHTML = html; //dopo averlo costruito lo inserisco nell'html, assegnazione, markup sostituto
 }
 
 
@@ -163,7 +183,7 @@ function colorIcons(icons, colors) {
     console.log(colors);
 
     //assegno colore by type ad ogni icona(nuovo array per lasciare icon inalterato)
-    const coloredIcons =icons.map((icon) => {
+    const coloredIcons =icons.map((icon) => {  //usiamo map che ci permette di avere un array di ritorno che non è un riferimento ad icons, ma ci costruiamo il dato da ritornare ad ogni iterazione
         const indexType = types.indexOf(icon.type); //attraverso un valore e non attraverso l'indice mi prendo la posizione
 
         //costruire l'oggetto che verrà ritornato nella nuova collezione (questo ad ogni iterazione)
@@ -188,4 +208,37 @@ function getType (icons) {
         
     });
     return types; //una volta ottenuti tutti i valori, li mettiamoin questa variabile
+}
+
+
+//FUNZIONE PER GENERARE LE OPZIONI PER FILTER (all, animals, vegetables, user)
+function genOption(types, select) {
+    //generazione opzioni
+    let options = "";
+    types.forEach((type) => {   //array type, ci faccio un loop e creo markup per ogni elemento
+        options +=`
+        <option value="${type}">${type}</option>
+        `; //
+    });
+    
+    select.innerHTML += options; //se scrivi =options escludi "all" perchè sovrascrive e prende solo le options generate
+
+}
+
+
+//FUNZIONE PER ICON SET 
+function filterIcons(icons, selected) {
+
+    if (selected === "all") { //blocca l'esecuzione della funzione quando seleziono all, così vedo tutte le icone
+        return icons;
+    }
+
+    const filtered = icons.filter((icon) => {
+
+        return icon.type === selected; //il type è uguale a ciò che ho selezionato? Se si portalo fuori, altrimenti continua col prossimo
+
+
+    });
+
+    return filtered;
 }
